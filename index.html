@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>d3 dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.min.css">
+    <link rel="stylesheet" href="static/css/style.css">
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://unpkg.com/topojson@3"></script>
+</head>
+<body>
+    <section class="hero is-dark is-bold has-text-centered">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">Co2 emissions</h1>
+                <h2 class="subtitle">Explore Co2 emissions by year</h2>
+                <p style="display: inline">Current year: </p>
+                <input type="range" class="slider" id="year-select">
+                <p class="is-size-4">Choose between total emissions or emissions per capita</p>
+                <div class="control has-text-centered">
+                    <label class="radio">
+                        <input type="radio" name="emissions">Emissions
+                    </label>
+                    <label class="radio">
+                        <input type="radio" name="emissions">Emissions per Capita
+                    </label>
+                </div>
+                <p class="is-size-4">Click on a country to see its trends by year</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="visualization">
+        <svg id="map"></svg>
+        <svg id="pie"></svg>
+        <svg id="bar"></svg>
+    </section>
+    <script src="static/js/map.js"></script>
+    <script src="static/js/pie.js"></script>
+    <script src="static/js/bar.js"></script>
+</body>
+</html>
