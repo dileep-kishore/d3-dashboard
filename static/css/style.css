@@ -2,6 +2,18 @@
   padding-top: 5px;
 }
 
+#visualization {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#visualization-side {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 .slider {
   -webkit-appearance: none;
   appearance: none;
@@ -11,6 +23,7 @@
   border-radius: 5px;
   outline: none;
   opacity: 0.7;
+  transition: 0.5s;
   transition: 0.5s;
 }
 
@@ -26,6 +39,11 @@
   height: 25px;
   border-radius: 50%;
   background: palevioletred;
+  transition: 0.5s;
+}
+
+.country {
+  cursor: pointer;
 }
 
 .map-tooltip {
@@ -41,11 +59,32 @@
 .map-tooltip:after {
   content: ' ';
   position: absolute;
-  right: 100%;
-  top: 50%;
-  left: -10px;
-  margin-top: -6px;
-  border-width: 5px;
+  top: 100%;
+  left: 50%;
+  margin-left: -6px;
+  border-width: 10px;
   border-style: solid;
-  border-color: transparent saddlebrown transparent transparent;
+  border-color: saddlebrown transparent transparent transparent;
+}
+
+.pie-tooltip {
+  opacity: 0;
+  position: absolute;
+  pointer-events: none;
+  background-color: bisque;
+  border: 2px solid saddlebrown;
+  border-radius: 5px;
+  padding: 1px;
+  transition: 0.5s;
+}
+
+.pie-tooltip:after {
+  content: ' ';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -6px;
+  border-width: 10px;
+  border-style: solid;
+  border-color: saddlebrown transparent transparent transparent;
 }

@@ -16,6 +16,14 @@ function drawMap(geoData) {
     .append("path")
     .classed("country", true)
     .attr("d", path)
+
+  svg
+    .append("text")
+      .attr("x", width / 2 - 175)
+      .attr("y", height - 20)
+      .style("font-size", "1.5em")
+      .classed("map-title", true)
+      .text(`Carbon dioxide ${emissionType}, ${yearVal}`)
 }
 
 function idCountryMap(geodata, populationdata) {
@@ -42,10 +50,12 @@ function makeMapTooltip(idMap) {
       .on("mousemove", d => {
         tooltip
           .style("opacity", 1)
-          .style("left", d3.event.x + 10 + "px")
-          .style("top", d3.event.y + 10 +"px")
+          .style("left", d3.event.x - 50 + "px")
+          .style("top", d3.event.y - 65 +"px")
+          .classed("is-size-6", true)
+          .classed("has-text-centered", true)
           .html(`
-            <p> ${idMap[d.id]} </p>
+            <p class="is-capitalized has-text-weight-semibold"> ${idMap[d.id]} </p>
             <p> ${d.properties[option] ? d.properties[option] : 'unknown'} </p>
           `)
       })
@@ -98,57 +108,36 @@ function setMapColor(geodata, populationdata) {
         let data = d.properties[option]
         return data ? colorScalefn(option)(data) : "#ccc"
       })
+    d3.select(".map-title")
+      .transition()
+      .duration(1000)
+      .ease(d3.easeQuadIn)
+      .text(`Carbon dioxide ${emissionType}, ${yearVal}`)
   }
   return inner
 }
 
-
-d3.queue()
-  .defer(d3.json, 'http://unpkg.com/world-atlas@1.1.4/world/50m.json')
-  .defer(d3.csv, './data/all_data.csv', row => ({
-      country: row.Country,
-      countryCode: row.CountryCode,
-      year: +row.Year,
-      emissions: +row.Emissions,
-      emissionsPerCapita: +row.EmissionsPerCapita
-    }))
-  .await((error, mapData, populationData) => {
-    if (error) throw error
-
-    let geoData = topojson.feature(mapData, mapData.objects.countries).features
-
-    let minYear = d3.min(populationData, d => d.year)
-    let maxYear = d3.max(populationData, d => d.year)
-    let yearSelect = d3.select("#year-select")
-                       .property("min", minYear)
-                       .property("max", maxYear)
-                       .property("value", minYear)
-    let emissionSelect = d3.selectAll("input[name='emissions']")
-    yearVal = +yearSelect.property("value")
-    emissionType = emissionSelect.property("value")
-
-    const mapScalefn = mapColorScale(populationData)
-    const mapTooltipfn = makeMapTooltip(idCountryMap(geoData, populationData))
-    const mapColorfn = setMapColor(geoData, populationData)
-
-    drawMap(geoData)
-    mapTooltipfn(emissionType)
-
-    mapColorfn(yearVal, mapScalefn, emissionType)
-
-    yearSelect
-      .on("change", d => {
-        yearVal = +d3.event.target.value
-        mapColorfn(yearVal, mapScalefn, emissionType)
-      })
-
-    emissionSelect
-      .on("change", d => {
-        emissionType = d3.event.target.value
-        console.log("Changed", emissionType)
-        mapTooltipfn(emissionType)
-        mapColorfn(yearVal, mapScalefn, emissionType)
-      })
-
-  })
-
+function highlightBorder(geoData) {
+  let width = 800
+  let height = 600
+  let projection = d3.geoMercator()
+    .scale(135)
+    .translate([width / 2, height / 1.55])
+  let path = d3.geoPath()
+    .projection(projection)
+  function inner(countryData) {
+    console.log(geoData)
+    d3.select("#map")
+        .selectAll(".country")
+        .data([countryData], d => d.countryCode)
+        .enter()
+        .append("path")
+        .classed("country", true)
+        .transition()
+        .duration(1000)
+        .ease(d3.easeQuadIn)
+        .attr("d", path)
+        .attr("stroke", "black")
+  }
+  return inner
+}
