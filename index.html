@@ -16,15 +16,15 @@
             <div class="container">
                 <h1 class="title">Co2 emissions</h1>
                 <h2 class="subtitle">Explore Co2 emissions by year</h2>
-                <p style="display: inline">Current year: </p>
+                <p style="display: inline">Current year:<span id="year-display"></span></p>
                 <input type="range" class="slider" id="year-select">
                 <p class="is-size-4">Choose between total emissions or emissions per capita</p>
                 <div class="control has-text-centered">
                     <label class="radio">
-                        <input type="radio" name="emissions">Emissions
+                        <input type="radio" name="emissions" value="emissions">Emissions
                     </label>
                     <label class="radio">
-                        <input type="radio" name="emissions">Emissions per Capita
+                        <input type="radio" name="emissions" value="emissionsPerCapita">Emissions per Capita
                     </label>
                 </div>
                 <p class="is-size-4">Click on a country to see its trends by year</p>

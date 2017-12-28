@@ -16,6 +16,7 @@
 
 .slider:hover {
   opacity: 1;
+  cursor: pointer;
 }
 
 .slider::-webkit-slider-thumb {
@@ -25,4 +26,26 @@
   height: 25px;
   border-radius: 50%;
   background: palevioletred;
+}
+
+.map-tooltip {
+  opacity: 0;
+  position: absolute;
+  pointer-events: none;
+  background-color: bisque;
+  border: 2px solid saddlebrown;
+  border-radius: 5px;
+  padding: 1px;
+}
+
+.map-tooltip:after {
+  content: ' ';
+  position: absolute;
+  right: 100%;
+  top: 50%;
+  left: -10px;
+  margin-top: -6px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent saddlebrown transparent transparent;
 }
