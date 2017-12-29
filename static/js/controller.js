@@ -43,13 +43,19 @@ d3.queue()
 
     // Bar functions
     const barDrawfn = drawBar(populationData)
-    const barHeightfn = barHeightScale(populationData)
+    const barTooltipfn = makeBarTooltip()
+
+    // Bar init
+    barTooltipfn(emissionType)
 
     yearSelect
       .on("change", d => {
         yearVal = +d3.event.target.value
         mapColorfn(yearVal, mapScalefn, emissionType)
         pieDrawfn(yearVal, emissionType)
+
+        // cleaning up
+        d3.selectAll(".country").style("stroke", "none")
         clearBar()
       })
 
@@ -61,6 +67,10 @@ d3.queue()
         mapColorfn(yearVal, mapScalefn, emissionType)
         pieDrawfn(yearVal, emissionType)
         pieTooltipfn(emissionType)
+        barTooltipfn(emissionType)
+
+        // cleaning up
+        d3.selectAll(".country").style("stroke", "none")
         clearBar()
       })
 
@@ -70,10 +80,8 @@ d3.queue()
         d3.select(this).style("stroke", "black")
 
         let countryData = d
-        // console.log(countryData)
-
         // Bar init
-        barDrawfn(countryData.properties.country, emissionType, barHeightfn)
+        barDrawfn(countryData.properties.country, emissionType)
       })
 
   })

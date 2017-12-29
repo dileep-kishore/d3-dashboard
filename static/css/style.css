@@ -19,6 +19,11 @@
   padding: 0 auto;
 }
 
+svg#pie {
+  display: block;
+  margin: 0 auto;
+}
+
 .slider {
   -webkit-appearance: none;
   appearance: none;
@@ -49,6 +54,10 @@
 
 .country {
   cursor: pointer;
+}
+
+.country:hover {
+  opacity: 0.75;
 }
 
 .map-tooltip {
@@ -84,6 +93,33 @@
 }
 
 .pie-tooltip:after {
+  content: ' ';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -6px;
+  border-width: 10px;
+  border-style: solid;
+  border-color: saddlebrown transparent transparent transparent;
+}
+
+.y-axis {
+  opacity: 0.5;
+  stroke: gray;
+}
+
+.bar-tooltip {
+  opacity: 0;
+  position: absolute;
+  pointer-events: none;
+  background-color: bisque;
+  border: 2px solid saddlebrown;
+  border-radius: 5px;
+  padding: 1px;
+  transition: 0.5s;
+}
+
+.bar-tooltip:after {
   content: ' ';
   position: absolute;
   top: 100%;

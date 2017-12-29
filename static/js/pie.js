@@ -43,13 +43,13 @@ function drawPie(data) {
 
 
   function update(year, option) {
-    let fltrData = fixData(data.filter(d => d.year === year), contData)
+    let fltrData = fixMissingCountry(data.filter(d => d.year === year), contData)
     let arcs = d3.pie()
                   .value(d => d[option])
                   .sort(sortCont)
     let chart = d3.select(".chart")
                   .selectAll(".arc")
-                  .data(arcs(fltrData))
+                  .data(arcs(fltrData), d => d.data.country)
     chart
       .transition()
       .duration(1000)
@@ -157,7 +157,7 @@ function pieColorScale(data) {
   return colorScale
 }
 
-function fixData(data, continentData) {
+function fixMissingCountry(data, continentData) {
   let fixedData = []
   for(let i in continentData) {
     continentData[i]
