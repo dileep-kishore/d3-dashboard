@@ -103,6 +103,10 @@ svg#pie {
   border-color: saddlebrown transparent transparent transparent;
 }
 
+.yearly-emission:hover {
+  opacity: 0.75;
+}
+
 .y-axis {
   opacity: 0.5;
   stroke: gray;
