@@ -91,7 +91,7 @@ function drawBar(data) {
       .transition()
       .duration(250)
       .delay((d, i) => i * 50)
-      .ease(d3.easeElasticOut)
+      .ease(d3.easeBounceOut)
       .call(yAxis)
 
     svg
