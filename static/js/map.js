@@ -116,28 +116,3 @@ function setMapColor(geodata, populationdata) {
   }
   return inner
 }
-
-function highlightBorder(geoData) {
-  let width = 800
-  let height = 600
-  let projection = d3.geoMercator()
-    .scale(135)
-    .translate([width / 2, height / 1.55])
-  let path = d3.geoPath()
-    .projection(projection)
-  function inner(countryData) {
-    console.log(geoData)
-    d3.select("#map")
-        .selectAll(".country")
-        .data([countryData], d => d.countryCode)
-        .enter()
-        .append("path")
-        .classed("country", true)
-        .transition()
-        .duration(1000)
-        .ease(d3.easeQuadIn)
-        .attr("d", path)
-        .attr("stroke", "black")
-  }
-  return inner
-}

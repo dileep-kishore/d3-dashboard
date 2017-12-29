@@ -27,7 +27,6 @@ d3.queue()
     const mapScalefn = mapColorScale(populationData)
     const mapTooltipfn = makeMapTooltip(idCountryMap(geoData, populationData))
     const mapColorfn = setMapColor(geoData, populationData)
-    const borderfn = highlightBorder(geoData)
 
     // Map init
     drawMap(geoData)
@@ -36,13 +35,15 @@ d3.queue()
 
     // Pie functions
     const pieDrawfn = drawPie(populationData)
-    const countryIdMap = countryMap(populationData)
     const pieTooltipfn = makePieTooltip()
 
     // Pie init
     pieDrawfn(yearVal, emissionType)
     pieTooltipfn(emissionType)
 
+    // Bar functions
+    const barDrawfn = drawBar(populationData)
+    const barHeightfn = barHeightScale(populationData)
 
     yearSelect
       .on("change", d => {
@@ -67,10 +68,12 @@ d3.queue()
       .on("click", function(d) {
         d3.selectAll(".country").style("stroke", "none")
         d3.select(this).style("stroke", "black")
-        // this is shit
+
         let countryData = d
-        console.log(countryData)
-        borderfn(countryData)
+        // console.log(countryData)
+
+        // Bar init
+        barDrawfn(countryData.properties.country, emissionType, barHeightfn)
       })
 
   })

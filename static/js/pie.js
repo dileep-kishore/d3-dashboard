@@ -1,6 +1,6 @@
 function drawPie(data) {
-  let width = 350
-  let height = 350
+  let width = 300
+  let height = 300
   let svg = d3.select("#pie")
               .attr("width", width)
               .attr("height", height)
@@ -19,45 +19,71 @@ function drawPie(data) {
       .text(`${emissionType}, ${yearVal}`)
 
   let contData = getContinentData(data)
-
-  function inner(year, option) {
-    let fltrData = fixData(data.filter(d => d.year === year), contData)
-    let colorScale = pieColorScale(fltrData)
-    let continents = getContinentSet(fltrData)
-    let arcs = d3.pie()
-                 .value(d => d[option])
-                 .sort((a, b) => continents.indexOf(a.continent) - continents.indexOf(b.continent))
-    let path = d3.arc()
-                 .outerRadius(width / 2)
-                 .innerRadius(0)
-
-    let update = d3.select(".chart")
-                   .selectAll(".arc")
-                   .data(arcs(fltrData))
-    update
-      .exit()
-      .remove()
-    update
-      .enter()
-      .append("path")
-        .classed("arc", true)
-      .merge(update)
-        .transition()
-        .duration(750)
-        .ease(d3.easeQuadIn)
+  const continents = getContinentSet(data)
+  const colorScale = pieColorScale(data)
+  const sortCont = (a, b) => continents.indexOf(a.continent) - continents.indexOf(b.continent)
+  let dummyArcs = d3.pie()
+                    .value(d => 0)
+                    .sort(sortCont)
+  let path = d3.arc()
+               .outerRadius(width / 2)
+               .innerRadius(10)
+  let dummyData = getDummyData(data)
+  let chart = d3.select(".chart")
+                .selectAll(".arc")
+                .data(dummyArcs(dummyData))
+  chart
+    .enter()
+    .append("path")
+      .classed("arc", true)
         .attr("fill", d => {
           return colorScale(d.data.continent)
         })
         .attr("d", path)
 
+
+  function update(year, option) {
+    let fltrData = fixData(data.filter(d => d.year === year), contData)
+    let arcs = d3.pie()
+                  .value(d => d[option])
+                  .sort(sortCont)
+    let chart = d3.select(".chart")
+                  .selectAll(".arc")
+                  .data(arcs(fltrData))
+    chart
+      .transition()
+      .duration(1000)
+      .ease(d3.easeQuadOut)
+      .attr("d", path)
+
     d3.select(".pie-title")
       .transition()
       .duration(1000)
       .ease(d3.easeBackIn)
-      .text(`${emissionType}, ${yearVal}`)
+      .text(`${option}, ${year}`)
   }
+  return update
+}
 
-  return inner
+function getDummyData(data) {
+  let dummyData = []
+  let countryIdMap = getCountryIdMap(data)
+  let countryContMap = getCountryContMap(data)
+  let continentData = getContinentData(data)
+  for(let i in continentData) {
+    continentData[i]
+      .forEach(country => {
+        dummyData.push({
+          country,
+          countryCode: countryIdMap[country],
+          continent: countryContMap[country],
+          year: 0,
+          emissions: 0,
+          emissionsPerCapita: 0
+        })
+      })
+  }
+  return dummyData
 }
 
 function makePieTooltip() {
@@ -86,7 +112,14 @@ function makePieTooltip() {
   return inner
 }
 
-function countryMap(data) {
+function getCountryContMap(data) {
+  let map = {}
+  data
+    .forEach(r => map[r.country] = r.continent)
+  return map
+}
+
+function getCountryIdMap(data) {
   let map = {}
   data
     .forEach(r => map[r.country] = r.countryCode)

@@ -5,13 +5,18 @@
 #visualization {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 #visualization-side {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+#visualization-side div {
+  padding: 0 auto;
 }
 
 .slider {
