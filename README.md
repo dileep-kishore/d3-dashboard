@@ -17,7 +17,7 @@ The live demo can be found here:
 ![emissions_2000](assets/emissions_2000.png)
 <p style="text-align: center"> You can change the year </p>
 
-![emissionspercapita_2000](assets/emissionspercapita_2000.png)
+![emissionspercapita_2010](assets/emissionspercapita_2010.png)
 <p style="text-align: center"> You can choose to look at emissions per capita </p>
 
 ![emissions_bar](assets/emissions_bar.png)
