@@ -1,5 +1,5 @@
 d3.queue()
-  .defer(d3.json, 'http://unpkg.com/world-atlas@1.1.4/world/50m.json')
+  .defer(d3.json, 'https://unpkg.com/world-atlas@1.1.4/world/50m.json')
   .defer(d3.csv, './data/all_data.csv', row => ({
       country: row.Country,
       countryCode: row.CountryCode,
