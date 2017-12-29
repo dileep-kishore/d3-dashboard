@@ -24,3 +24,7 @@ The live demo can be found here:
 <p style="text-align: center"> You can click on a country to see it's early trend in the bar chart </p>
 
 ![emissionspercapita_bar](assets/emissionspercapita_bar.png)
+
+## CREDITS
+
+[The Advanced Web Developer Bootcamp](https://www.udemy.com/the-advanced-web-developer-bootcamp/learn/v4/)
