@@ -171,11 +171,12 @@ function makeBarTooltip() {
                     .classed("bar-tooltip", true)
   function inner(option) {
     d3.selectAll(".yearly-emission")
-      .on("mousemove", d => {
+      .on("mousemove", function(d) {
+        let { top, left } = this.getBoundingClientRect()
         tooltip
           .style("opacity", 1)
-          .style("left", d3.event.x - 50 + "px")
-          .style("top", d3.event.y - 65 +"px")
+          .style("left", left - 65 + "px")
+          .style("top", top - 45 +"px")
           .classed("is-size-6", true)
           .classed("has-text-centered", true)
           .html(`
