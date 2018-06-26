@@ -1,10 +1,10 @@
 # d3-dashboard
-A d3 dashboard showing CO2 emissions by various countries from 1990-2011.
+A d3 dashboard showing CO2 emissions by various countries between 1990-2011.
 
-This dashboard was implemented in pure d3 and uses topojson for the map visualization. Bulma css is used to style the header. Transitions in the visulization are smooth thanks to `d3-transition` and `d3-ease`.
+This dashboard was implemented using `d3js` and uses `topojson` for the map visualization. `Bulma` css is used for styling. Transitions in the visulization are smooth thanks to `d3-transition` and `d3-ease`.
 
 ## Data
-The data that is being visualized in the dashboard was obtained [here](http://data.un.org/)
+The data for the visualization can be obtained [here](http://data.un.org/)
 
 ## Live Demo
 The live demo can be found here:
@@ -12,7 +12,7 @@ The live demo can be found here:
 
 ## Screenshots
 ![main](assets/main.png)
-<p style="text-align: center"> Main dashboard page that is shows when you load the page </p>
+<p style="text-align: center"> Main dashboard page that appears when you load the page </p>
 
 ![emissions_2000](assets/emissions_2000.png)
 <p style="text-align: center"> You can change the year </p>
@@ -27,4 +27,4 @@ The live demo can be found here:
 
 ## CREDITS
 
-[The Advanced Web Developer Bootcamp](https://www.udemy.com/the-advanced-web-developer-bootcamp/learn/v4/)
+This project was one of the projects assigned during [The Advanced Web Developer Bootcamp](https://www.udemy.com/the-advanced-web-developer-bootcamp/learn/v4/)
